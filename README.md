@@ -93,3 +93,22 @@ And this is the exception I got:
     02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.(root)(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/widget.rb:1)
   
 Anyone who knows how to solve this would be welcomed! Thanks!!
+
+Updates:
+I just try to use the PathClassLoader instead of DexClassLoader. I tried this before but failed because the app can't load the classes.dex in the RubotoCore.apk.
+
+                apkName = Environment.getExternalStorageDirectory()
+                        + "/RubotoCore.apk";
+                RUBOTO_CORE_VERSION_NAME = "0.6.0";
+                classLoader = new PathClassLoader(apkName,JRubyAdapter.class.getClassLoader());
+
+But when I followed this thread in StackOverFlow
+
+http://stackoverflow.com/questions/11453614/how-can-i-load-a-jar-file-dynamically-in-an-android-application-4-0-3
+
+I change the /data/dalvik-cache's access control to 777
+    su chmod 777 /data/dalvik-cache
+
+And then relunch, It works!  Anyway, you cann't change the user's /data/dalvik-cache into mod 777 right?
+
+So I guess this might relates to the possible solution.
