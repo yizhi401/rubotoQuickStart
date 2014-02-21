@@ -1,14 +1,21 @@
 rubotoQuickStart
 ================
 
-This is a problem program trying to make use of RubotoCore without installation
+This is a program trying to make use of RubotoCore without installation.
 
-
-How to replicate my problem?
 
 1. Download the project and install in your phone (both through eclipse or command-line is ok).
 2. if your phone have the Ruboto-core installed, the project should be working fine.  If your phone don't have Ruboto-core installed the app would ask you to download and install (just like the First Ruboto demo program behaves because it is the ruboto demo program).
-3. If you download the RubotoCore.apk in this repository, or rename the official ruboto-core.apk to RubotoCore.apk, and then put the apk file in the sdcard's root directory. And then restart the quick_start app (without ruboto-core installed), you will get the problem.
+
+Above is the general behavior that how Ruboto_Core works. 
+
+
+But if you don't want to install the RubotoCore.apk while still make your ruboto app runs well, here is the solution:
+
+1. Download the official ruboto-core.apk and rename it to RubotoCore.apk, and then put the apk file in the sdcard's root directory (or whatever directory you want, but in this example I made it the SDcard's root directory). 
+2. Then restart the quick_start app (without ruboto-core installed), everything goes fine!.
+
+
 
 
 This project is the demo project generated automatically using command
@@ -31,7 +38,7 @@ The only file that I modified is the org/ruboto/JRubyAdapter.java
       String libPath = Environment.getExternalStorageDirectory()+ "/RubotoCore.apk";
       File tmpDir = appContext.getDir("tempdex", 0);
       classLoader = new DexClassLoader(libPath,
-      tmpDir.getAbsolutePath(),null,JRubyAdapter.class.getClass().getClassLoader());
+      tmpDir.getAbsolutePath(),null,JRubyAdapter.class.getClassLoader());
       
       apkName = Environment.getExternalStorageDirectory()
                             + "/RubotoCore.apk";
@@ -65,37 +72,10 @@ The only file that I modified is the org/ruboto/JRubyAdapter.java
       //
       ...........others are the same
   
-And this is the exception I got:
-
-    02-19 11:53:50.719: E/AndroidRuntime(25373): FATAL EXCEPTION: ScriptLoader for  Java::ComChenhaoExampleQuick_startQuickStartActivity
-    02-19 11:53:50.719: E/AndroidRuntime(25373): org.jruby.embed.EvalFailedException: (NameError) cannot load Java class com.chenhao.example.quick_start.R
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.embed.internal.EmbedEvalUnitImpl.run(EmbedEvalUnitImpl.java:133)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.embed.ScriptingContainer.runUnit(ScriptingContainer.java:1264)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.embed.ScriptingContainer.runScriptlet(ScriptingContainer.java:1257)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at java.lang.reflect.Method.invokeNative(Native Method)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at java.lang.reflect.Method.invoke(Method.java:511)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.ruboto.JRubyAdapter.runScriptlet(JRubyAdapter.java:104)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.ruboto.ScriptLoader$1.run(ScriptLoader.java:79)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at java.lang.Thread.run(Thread.java:856)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): Caused by: org.jruby.exceptions.RaiseException: (NameError) cannot load Java class com.chenhao.example.quick_start.R
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.javasupport.JavaClass.for_name(org/jruby/javasupport/JavaClass.java:1242)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.javasupport.JavaUtilities.get_proxy_class(org/jruby/javasupport/JavaUtilities.java:34)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.java_import(file:/storage/sdcard0/org.ruboto.core-1.apk!/jruby/java/core_ext/object.rb:26)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.RubyArray.map(org/jruby/RubyArray.java:2417)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.java_import(file:/storage/sdcard0/org.ruboto.core-1.apk!/jruby/java/core_ext/object.rb:22)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.Ruboto(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/package.rb:4)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.(root)(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/package.rb:3)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1054)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.(root)(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/activity.rb:1)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1054)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.(root)(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/activity.rb:2)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1054)
-    02-19 11:53:50.719: E/AndroidRuntime(25373): 	at RUBY.(root)(file:/storage/sdcard0/org.ruboto.core-1.apk!/ruboto/widget.rb:1)
-  
-Anyone who knows how to solve this would be welcomed! Thanks!!
 
 Updates:
-I just try to use the PathClassLoader instead of DexClassLoader. I tried this before but failed because the app can't load the classes.dex in the RubotoCore.apk.
+
+If you try to use the PathClassLoader instead of DexClassLoader, it will also worked. I tried this before but failed because the app can't load the classes.dex in the RubotoCore.apk.
 
                 apkName = Environment.getExternalStorageDirectory()
                         + "/RubotoCore.apk";
@@ -109,6 +89,4 @@ http://stackoverflow.com/questions/11453614/how-can-i-load-a-jar-file-dynamicall
 I change the /data/dalvik-cache's access control to 777
     su chmod 777 /data/dalvik-cache
 
-And then relunch, It works!  Anyway, you cann't change the user's /data/dalvik-cache into mod 777 right?
-
-So I guess this might relates to the possible solution.
+And then relunch, It works!  Anyway, you cann't change the user's /data/dalvik-cache into mod 777 right? So using DexClassLoader is ok.
