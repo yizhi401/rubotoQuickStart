@@ -210,7 +210,7 @@ public class JRubyAdapter {
 						File tmpDir = appContext.getDir("tempdex", 0);
 						classLoader = new DexClassLoader(libPath,
 								tmpDir.getAbsolutePath(), null,
-								JRubyAdapter.class.getClass().getClassLoader());
+								JRubyAdapter.class.getClassLoader());
 
 						apkName = Environment.getExternalStorageDirectory()
 								+ "/RubotoCore.apk";
